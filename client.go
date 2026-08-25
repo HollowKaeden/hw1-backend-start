@@ -6,6 +6,7 @@ import (
 	"log"
 	"net"
 	"os"
+	"time"
 )
 
 func main() {
@@ -15,6 +16,8 @@ func main() {
 		log.Fatal(err)
 	}
 	defer conn.Close()
+
+	conn.SetReadDeadline(time.Now().Add(5 * time.Second))
 
 	data, err := io.ReadAll(conn)
 	if err != nil {
